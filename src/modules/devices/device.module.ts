@@ -1,0 +1,19 @@
+import { TypeOrmExModule } from '@modules/typeorm-ex.module'
+import { Module } from '@nestjs/common'
+import { CqrsModule } from '@nestjs/cqrs'
+
+import { DeviceController } from './controllers/device.controller'
+import { CreateDeviceCommandHandler } from './cqrs/commands/handler/create-device.handler'
+import { GetDeviceByIdQueryHandler } from './cqrs/queries/handler/get-device-by-id.handler'
+import { GetDeviceByTokenQueryHandler } from './cqrs/queries/handler/get-device-by-token.handler'
+import { DeviceRepository } from './repositories/device.repository'
+
+const QueryHandlers = [GetDeviceByIdQueryHandler, GetDeviceByTokenQueryHandler]
+const CommandHandlers = [CreateDeviceCommandHandler]
+
+@Module({
+  providers: [...QueryHandlers, ...CommandHandlers],
+  controllers: [DeviceController],
+  imports: [CqrsModule, TypeOrmExModule.forCustomRepository([DeviceRepository])],
+})
+export class DeviceModule {}
