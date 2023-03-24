@@ -10,4 +10,8 @@ export class CreateDeviceDto {
   @IsString()
   @ApiProperty()
   image: string
+
+  @IsString()
+  @ApiProperty()
+  token: string
 }

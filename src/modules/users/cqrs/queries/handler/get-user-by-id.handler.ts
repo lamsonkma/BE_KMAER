@@ -8,6 +8,6 @@ import { GetUserByIdQuery } from '../impl/get-user-by-id.query'
 export class GetUserByIdQueryHandler implements IQueryHandler<GetUserByIdQuery> {
   constructor(private readonly userRepository: UserRepository) {}
   execute(query: GetUserByIdQuery): Promise<UserEntity> {
-    return this.userRepository.findOne({ where: { id: query.id }, select: ['devices'] })
+    return this.userRepository.findOne({ where: { id: query.id } })
   }
 }

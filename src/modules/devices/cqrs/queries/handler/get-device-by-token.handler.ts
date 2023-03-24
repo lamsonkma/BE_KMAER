@@ -14,6 +14,7 @@ export class GetDeviceByTokenQueryHandler implements IQueryHandler<GetDeviceByTo
       .createQueryBuilder('device')
       .leftJoinAndSelect('device.tokens', 'token')
       .where('token.token_device = :token', { token })
+      .leftJoinAndSelect('device.users', 'user')
       .getOne()
 
     return device

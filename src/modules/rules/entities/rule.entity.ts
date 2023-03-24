@@ -8,8 +8,11 @@ export class RuleEntity extends AbstractEntity {
   application: ApplicationEntity
 
   @Column()
-  name: string
+  startTime: string
 
   @Column()
-  image: string
+  endTime: string
+
+  @Column({ default: false })
+  enabled: boolean
 }

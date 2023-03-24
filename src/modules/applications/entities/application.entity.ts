@@ -16,4 +16,7 @@ export class ApplicationEntity extends AbstractEntity {
 
   @Column()
   image: string
+
+  @Column()
+  timeUsed: number
 }
