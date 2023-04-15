@@ -10,7 +10,8 @@ export class GetOneAppByIdQueryHandler implements IQueryHandler<GetOneAppByIdQue
     const { id } = query
     return this.applicationRepository
       .createQueryBuilder('application')
-      .innerJoinAndSelect('application.rules', 'rule')
+      .leftJoinAndSelect('application.rules', 'rule')
+      .leftJoinAndSelect('application.usages', 'usage')
       .where('application.id = :id', { id })
       .getOne()
   }

@@ -1,8 +1,8 @@
-import { UserEntity } from '@modules/users/entities/user.entity'
 import { Query } from '@nestjs-architects/typed-cqrs'
+import { ForgotPasswordDto } from '@root/modules/auth/dto/forgot-password.dto'
 
-export class ForgotPasswordCommand extends Query<UserEntity> {
-  constructor(public readonly email: string) {
+export class ForgotPasswordCommand extends Query<{ status: boolean }> {
+  constructor(public readonly dto: ForgotPasswordDto) {
     super()
   }
 }

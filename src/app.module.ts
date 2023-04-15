@@ -10,10 +10,11 @@ import { typeormConfiguration } from './configurations/typeorm.config'
 import { ApplicationModule } from './modules/applications/application.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { DeviceModule } from './modules/devices/device.module'
+import { MailModule } from './modules/mail/mail.module'
 import { RuleModule } from './modules/rules/rule.module'
-import { TokenModule } from './modules/tokens/token.module'
+import { UsageModule } from './modules/usage/usage.module'
 
-const appModules = [AuthModule, UserModule, DeviceModule, TokenModule, ApplicationModule, RuleModule]
+const appModules = [AuthModule, UserModule, DeviceModule, ApplicationModule, RuleModule, UsageModule, MailModule]
 
 @Module({
   imports: [

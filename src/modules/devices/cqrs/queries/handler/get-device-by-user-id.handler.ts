@@ -8,10 +8,13 @@ export class GetDeviceByUserIdQueryHandler implements IQueryHandler<GetDeviceByU
   constructor(private readonly deviceRepository: DeviceRepository) {}
   async execute(query: GetDeviceByUserIdQuery) {
     const { userId } = query
+    //order by application.name
     const devices = this.deviceRepository
       .createQueryBuilder('device')
       .leftJoinAndSelect('device.users', 'user')
+      .leftJoinAndSelect('device.applications', 'applications')
       .where('user.id = :userId', { userId })
+      .orderBy('applications.name', 'ASC')
       .getMany()
 
     return devices

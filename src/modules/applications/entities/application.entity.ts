@@ -1,6 +1,7 @@
 import { AbstractEntity } from '@common/entities/abstract.entity'
 import { DeviceEntity } from '@root/modules/devices/entities/device.entity'
 import { RuleEntity } from '@root/modules/rules/entities/rule.entity'
+import { UsageEntity } from '@root/modules/usage/entities/usage.entity'
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 
 @Entity('application')
@@ -15,8 +16,11 @@ export class ApplicationEntity extends AbstractEntity {
   name: string
 
   @Column()
+  package: string
+
+  @Column({ nullable: true })
   image: string
 
-  @Column()
-  timeUsed: number
+  @OneToMany(() => UsageEntity, (usage) => usage.application)
+  usages: UsageEntity[]
 }

@@ -54,7 +54,6 @@ async function bootstrap() {
   )
 
   const { host, port, version } = configService.get<AppConfiguration>('app')
-
   if (process.env.NODE_ENV !== 'production') {
     setupSwagger(app, version)
   }

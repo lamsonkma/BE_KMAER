@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsArray, IsDate, IsNumber, IsOptional, IsString } from 'class-validator'
+import { IsArray, IsOptional, IsString } from 'class-validator'
 
 export class ApplicationDto {
   @IsString()
@@ -7,9 +7,12 @@ export class ApplicationDto {
   name: string
 
   @IsOptional()
-  @IsString()
   @ApiProperty()
   image: string
+
+  @IsString()
+  @ApiProperty()
+  package: string
 }
 
 export class CreateApplicationDto {
@@ -17,11 +20,7 @@ export class CreateApplicationDto {
   @ApiProperty()
   applications: ApplicationDto[]
 
-  @IsNumber()
+  @IsString()
   @ApiProperty()
-  deviceId: number
-
-  @IsNumber()
-  @ApiProperty()
-  timeUsed: number
+  token: string
 }

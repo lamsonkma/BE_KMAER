@@ -10,11 +10,11 @@ export class GetDeviceByTokenQueryHandler implements IQueryHandler<GetDeviceByTo
     const {
       dto: { token },
     } = query
-    const device = this.deviceRepository
+    const device = await this.deviceRepository
       .createQueryBuilder('device')
-      .leftJoinAndSelect('device.tokens', 'token')
-      .where('token.token_device = :token', { token })
-      .leftJoinAndSelect('device.users', 'user')
+      .leftJoinAndSelect('device.users', 'users')
+      .leftJoinAndSelect('device.applications', 'applications')
+      .where('device.token = :token', { token })
       .getOne()
 
     return device

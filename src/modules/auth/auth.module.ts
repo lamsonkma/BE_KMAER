@@ -7,12 +7,18 @@ import { JwtModule } from '@nestjs/jwt'
 
 import { AuthController } from './controllers/auth.controller'
 import { CreateTokenCommandHandler } from './cqrs/commands/handler/create-token.handler'
+import { ForgotPasswordCommandHandler } from './cqrs/commands/handler/forgot-password.handler'
 import { LoginByEmailCommandHandler } from './cqrs/commands/handler/login-by-email.handler'
 import { RegisterByEmailCommandHandler } from './cqrs/commands/handler/register-by-email.handler'
 import { JwtStrategy } from './jwt.strategy'
 import { LocalStrategy } from './local.strategy'
 
-const CommandHandlers = [LoginByEmailCommandHandler, RegisterByEmailCommandHandler, CreateTokenCommandHandler]
+const CommandHandlers = [
+  LoginByEmailCommandHandler,
+  RegisterByEmailCommandHandler,
+  CreateTokenCommandHandler,
+  ForgotPasswordCommandHandler,
+]
 @Module({
   providers: [...CommandHandlers, LocalStrategy, JwtStrategy],
   controllers: [AuthController],

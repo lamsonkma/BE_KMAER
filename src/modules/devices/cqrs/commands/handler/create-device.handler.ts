@@ -1,8 +1,6 @@
-import { NotFoundException } from '@nestjs/common'
-import { BadRequestException } from '@nestjs/common/exceptions'
-import { CommandBus, CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs'
+import { BadRequestException, NotFoundException } from '@nestjs/common'
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs'
 import { DeviceRepository } from '@root/modules/devices/repositories/device.repository'
-import { CreateTokenCommand } from '@root/modules/tokens/cqrs/commands/impl/create-token.command'
 import { GetUserByIdQuery } from '@root/modules/users/cqrs/queries/impl/get-user-by-id.query'
 
 import { GetDeviceByTokenQuery } from '../../queries/impl/get-device-by-token.query'
@@ -10,11 +8,7 @@ import { CreateDeviceCommand } from '../impl/create-device.command'
 
 @CommandHandler(CreateDeviceCommand)
 export class CreateDeviceCommandHandler implements ICommandHandler<CreateDeviceCommand> {
-  constructor(
-    private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    private readonly deviceRepository: DeviceRepository,
-  ) {}
+  constructor(private readonly queryBus: QueryBus, private readonly deviceRepository: DeviceRepository) {}
   async execute(command: CreateDeviceCommand) {
     const {
       dto: { name, image, token },
@@ -40,9 +34,8 @@ export class CreateDeviceCommandHandler implements ICommandHandler<CreateDeviceC
       name,
       image,
       users: [user],
+      token,
     })
-
-    await this.commandBus.execute(new CreateTokenCommand({ tokenDevice: token, deviceId: newDevice.id }))
 
     return this.deviceRepository.save(newDevice)
   }

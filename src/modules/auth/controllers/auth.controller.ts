@@ -4,7 +4,9 @@ import { CommandBus } from '@nestjs/cqrs'
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
 
 import { CreateTokenCommand } from '../cqrs/commands/impl/create-token.command'
+import { ForgotPasswordCommand } from '../cqrs/commands/impl/forgot-password.command'
 import { RegisterByEmailCommand } from '../cqrs/commands/impl/register-by-email.command'
+import { ForgotPasswordDto } from '../dto/forgot-password.dto'
 import { LoginByEmailDto } from '../dto/login-by-email.dto'
 import { LoginResponseDto } from '../dto/login-response.dto'
 import { RegisterByEmailDto } from '../dto/register-by-email.dto'
@@ -40,5 +42,10 @@ export class AuthController {
     const token = await this.commandBus.execute(new CreateTokenCommand(user))
 
     return { user, token }
+  }
+
+  @Post('forgot-password')
+  async forgotPassword(@Body() dto: ForgotPasswordDto) {
+    return this.commandBus.execute(new ForgotPasswordCommand(dto))
   }
 }

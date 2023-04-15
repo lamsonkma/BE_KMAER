@@ -9,8 +9,8 @@ import { CreateApplicationDto } from '../dto/create-application.dto'
 
 @Controller('application')
 @ApiTags('application')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
+// @UseGuards(JwtAuthGuard)
+// @ApiBearerAuth()
 export class ApplicationController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
   @Post()
