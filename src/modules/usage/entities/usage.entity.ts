@@ -1,8 +1,7 @@
 import { AbstractEntity } from '@common/entities/abstract.entity'
 import { DayOfWeek } from '@root/constants/day-of-week.enum'
 import { ApplicationEntity } from '@root/modules/applications/entities/application.entity'
-import { OtpEntity } from '@root/modules/users/entities/otp.entity'
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 
 @Entity('usage')
 export class UsageEntity extends AbstractEntity {
@@ -17,7 +16,4 @@ export class UsageEntity extends AbstractEntity {
 
   @ManyToOne(() => ApplicationEntity, (application) => application.usages)
   application: ApplicationEntity
-
-  @OneToMany(() => OtpEntity, (otp) => otp.user)
-  otps: OtpEntity[]
 }

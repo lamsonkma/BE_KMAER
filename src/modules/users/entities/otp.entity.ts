@@ -1,20 +1,13 @@
 import { AbstractEntity } from '@common/entities/abstract.entity'
-import { UsageEntity } from '@root/modules/usage/entities/usage.entity'
-import { Exclude } from 'class-transformer'
 import { Column, Entity, ManyToOne } from 'typeorm'
+
+import { UserEntity } from './user.entity'
 
 @Entity('otp')
 export class OtpEntity extends AbstractEntity {
   @Column()
-  email: string
+  code: string
 
-  @Column()
-  name: string
-
-  @Column()
-  @Exclude()
-  password: string
-
-  @ManyToOne(() => UsageEntity, (user) => user.otps)
-  user: UsageEntity
+  @ManyToOne(() => UserEntity, (user) => user.otps)
+  user: UserEntity
 }
