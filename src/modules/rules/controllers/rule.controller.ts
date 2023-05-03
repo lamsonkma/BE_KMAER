@@ -48,7 +48,7 @@ export class RuleController {
     return this.commandBus.execute(new UpdateRuleCommand(updateRuleDto, id))
   }
 
-  @Delete()
+  @Delete(':id')
   deleteRule(@Param('id', ParseIntPipe) id: number) {
     return this.commandBus.execute(new DeleteRuleByIdCommand(id))
   }

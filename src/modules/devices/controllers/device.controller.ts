@@ -36,9 +36,10 @@ export class DeviceController {
     return this.queryBus.execute(new GetDeviceByIdQuery(id))
   }
 
-  @Delete()
-  removeUserFromDevice(@AuthUser() user: JwtClaimsDto, @Body() device: { deviceId: number }) {
-    return this.commandBus.execute(new RemoveUserFromDeviceCommand(user.id, device.deviceId))
+  @Delete(':id')
+  removeUserFromDevice(@AuthUser() user: JwtClaimsDto, @Param('id', ParseIntPipe) id: number) {
+    console.log('hello')
+    return this.commandBus.execute(new RemoveUserFromDeviceCommand(user.id, id))
   }
 
   @Post('token')

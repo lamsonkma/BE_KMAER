@@ -10,6 +10,7 @@ export class RemoveUserFromDeviceCommandHandler implements ICommandHandler<Remov
   constructor(private readonly queryBus: QueryBus, private readonly deviceRepository: DeviceRepository) {}
   async execute(command: RemoveUserFromDeviceCommand) {
     const { userId, deviceId } = command
+    console.log('hêisidhsid')
     const device = await this.queryBus.execute(new GetDeviceByIdQuery(deviceId))
     if (!device) throw new NotFoundException('Device not found')
     const user = device.users.find((user) => user.id === userId)

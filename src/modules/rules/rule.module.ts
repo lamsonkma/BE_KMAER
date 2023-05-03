@@ -4,6 +4,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 
 import { RuleController } from './controllers/rule.controller'
 import { CreateRuleApplicationCommandHandler } from './cqrs/commands/handler/create-rule-application.handler'
+import { DeleteRuleByIdCommandHandler } from './cqrs/commands/handler/delete-rule-by-id.handler'
 import { UpdateRuleCommandHandler } from './cqrs/commands/handler/update-rule.handler'
 import { GetAllRuleByTokenQueryHandler } from './cqrs/queries/handler/get-all-rule-by-token.handler'
 import { GetAllRulesQueryHandler } from './cqrs/queries/handler/get-all-rules.handler'
@@ -17,7 +18,7 @@ const QueryHandlers = [
   GetAllRuleByTokenQueryHandler,
   GetRulesByApplicationQueryHandler,
 ]
-const CommandHandlers = [CreateRuleApplicationCommandHandler, UpdateRuleCommandHandler]
+const CommandHandlers = [CreateRuleApplicationCommandHandler, UpdateRuleCommandHandler, DeleteRuleByIdCommandHandler]
 
 @Module({
   providers: [...QueryHandlers, ...CommandHandlers],
