@@ -23,8 +23,8 @@ export class DeviceController {
   constructor(private readonly queryBus: QueryBus, private commandBus: CommandBus) {}
 
   @Post()
-  createDevice(@Body() createDeviceDto: CreateDeviceDto) {
-    return this.commandBus.execute(new CreateDeviceCommand(createDeviceDto, 1))
+  createDevice(@Body() createDeviceDto: CreateDeviceDto, @AuthUser() user: JwtClaimsDto) {
+    return this.commandBus.execute(new CreateDeviceCommand(createDeviceDto, user.id))
   }
   @Get('me')
   getDeviceByUser(@AuthUser() user: JwtClaimsDto) {
