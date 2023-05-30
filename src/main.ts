@@ -58,7 +58,7 @@ async function bootstrap() {
     setupSwagger(app, version)
   }
 
-  await app.listen(port)
+  await app.listen(port, host)
 
   logger.log(`server running on ${host}:${port}`)
 }
