@@ -1,5 +1,5 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common'
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs'
 import { DeviceRepository } from '@root/modules/devices/repositories/device.repository'
 import { GetUserByIdQuery } from '@root/modules/users/cqrs/queries/impl/get-user-by-id.query'
 
@@ -8,12 +8,25 @@ import { CreateDeviceCommand } from '../impl/create-device.command'
 
 @CommandHandler(CreateDeviceCommand)
 export class CreateDeviceCommandHandler implements ICommandHandler<CreateDeviceCommand> {
-  constructor(private readonly queryBus: QueryBus, private readonly deviceRepository: DeviceRepository) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+    private readonly deviceRepository: DeviceRepository,
+  ) {}
   async execute(command: CreateDeviceCommand) {
     const {
       dto: { name, image, token },
       userId,
     } = command
+
+    if (!userId) {
+      const addDevice = this.deviceRepository.create({
+        token,
+        name,
+        image,
+      })
+      return this.deviceRepository.save(addDevice)
+    }
 
     const user = await this.queryBus.execute(new GetUserByIdQuery(userId))
     if (!user) {
