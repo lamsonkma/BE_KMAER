@@ -12,7 +12,7 @@ export class UpdateProfileUserCommandHandler implements ICommandHandler<UpdatePr
   async execute(command: UpdateProfileUserCommand) {
     const {
       id,
-      dto: { name, newPassWord, oldPassWord },
+      dto: { name, newPassWord, oldPassWord, image },
     } = command
 
     const user = await this.queryBus.execute(new GetUserByIdQuery(id))
@@ -31,6 +31,10 @@ export class UpdateProfileUserCommandHandler implements ICommandHandler<UpdatePr
 
     if (name) {
       user.name = name
+    }
+
+    if (image) {
+      user.image = image
     }
 
     return this.userRepository.save(user)

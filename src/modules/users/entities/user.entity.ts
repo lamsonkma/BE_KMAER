@@ -13,6 +13,13 @@ export class UserEntity extends AbstractEntity {
   @Column()
   name: string
 
+  @Column({
+    nullable: true,
+    default:
+      'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1683598712~exp=1683599312~hmac=b162c61d181a2e083a7dbb5efc299fb681fa84c42394c4b1d4fbb48a71040b07',
+  })
+  image: string
+
   @Column()
   @Exclude()
   password: string
