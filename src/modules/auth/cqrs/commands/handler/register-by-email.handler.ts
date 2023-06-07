@@ -11,7 +11,7 @@ export class RegisterByEmailCommandHandler {
   constructor(private readonly queryBus: QueryBus, private readonly userRepository: UserRepository) {}
   async execute(command: RegisterByEmailCommand) {
     const {
-      dto: { email, password, name },
+      dto: { email, password, name, image },
     } = command
     const user = await this.queryBus.execute(new GetUserByEmailQuery(email))
     if (user) {
@@ -22,6 +22,7 @@ export class RegisterByEmailCommandHandler {
       email,
       password: UtilService.generateHash(password),
       name,
+      image,
     })
 
     return await this.userRepository.save(newUser)
